@@ -14,6 +14,7 @@ import AboutPage from './pages/About';
 import AboutIconLink from './commponents/AboutIconLink';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { FeedBackPorvider } from './context/FeedbackContext';
 
 function App() {
   // now its visiblae in the state components in browser dev tools
@@ -49,33 +50,36 @@ function App() {
   // we return jsx: javascript xml
   // this is just syntactic sugar
   return (
-    <Router>
-      <Header text={'FeedBack UI Demo'} />
-      <div className="container">
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <>
-                <FeedbackForm handleAdd={addFeedbackItem} />
-                <FeedbackStats feedback={feedBack} />
-                {/* <FeedBackItem /> */}
-                <FeedbackList
-                  feedback={feedBack}
-                  handleDelte={deleteFeedbackItem}
-                />
-                {/* <Card> Hello World </Card> */}
-              </>
-            }></Route>
-        </Routes>
-        {/* Creating route */}
-        <Routes>
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
-        <AboutIconLink />
-      </div>
-    </Router>
+    // sourend with context provider
+    <FeedBackPorvider>
+      <Router>
+        <Header text={'FeedBack UI Demo'} />
+        <div className="container">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <FeedbackForm handleAdd={addFeedbackItem} />
+                  <FeedbackStats feedback={feedBack} />
+                  {/* <FeedBackItem /> */}
+                  <FeedbackList
+                    feedback={feedBack}
+                    handleDelte={deleteFeedbackItem}
+                  />
+                  {/* <Card> Hello World </Card> */}
+                </>
+              }></Route>
+          </Routes>
+          {/* Creating route */}
+          <Routes>
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+          <AboutIconLink />
+        </div>
+      </Router>
+    </FeedBackPorvider>
   );
 }
 
