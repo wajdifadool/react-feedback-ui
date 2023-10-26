@@ -1,9 +1,24 @@
 import React from 'react';
 import FeedBackItem from './FeedBackItem';
 import PropTypes from 'prop-types';
+// updating to context api
+import { useContext } from 'react';
+import FeedBackContext from '../context/FeedbackContext';
 
 import { motion, AnimatePresence, animate } from 'framer-motion';
-function FeedbackList({ feedback, handleDelte }) {
+
+// {
+// props moved after used the context API
+/* feedback,*/
+/*handleDelte*/
+// }
+function FeedbackList() {
+  // we dont need to pass the feedback as prop
+  // we now use useContext and cooment the porp feedback
+
+  // we can extract what ever we want from FeedBackContext hook
+  // hence its wraped in APP.js with <FeedBackPorvider>
+  const { feedback } = useContext(FeedBackContext);
   console.log(feedback);
   if (!feedback || feedback.length === 0) {
     return <p> No feedBack YET!</p>;
@@ -35,7 +50,7 @@ function FeedbackList({ feedback, handleDelte }) {
                 // pass it to the App
                 // but we get the handle delete from the App as a prop
 
-                handleDelte={handleDelte}
+                /*handleDelte={handleDelte} Moved to ContextAPI*/
               />
             </motion.div>
           );

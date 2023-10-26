@@ -4,12 +4,19 @@ import Card from './shared/Card';
 import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
 
-function FeedbackForm({ handleAdd }) {
+// App driling replaced with ContextApi
+import { useContext } from 'react';
+import FeedBackContext from '../context/FeedbackContext';
+
+function FeedbackForm() {
+  // { handleAdd }
   // our Hooks
   const [text, setText] = useState('');
   const [btnDisabled, setbtnDisabled] = useState(true);
   const [rating, setRating] = useState(10); // rating
   const [message, setMessage] = useState('');
+
+  const { addFeedbackItem } = useContext(FeedBackContext);
 
   // we conenct
   const handleTextChange = (event) => {
@@ -39,7 +46,8 @@ function FeedbackForm({ handleAdd }) {
         rating: rating,
       };
       // handleAdd in App js get called from here , app driling end here
-      handleAdd(newFeddbackItem);
+      // handleAdd(newFeddbackItem) ; // replacecd With COntext API
+      addFeedbackItem(newFeddbackItem);
 
       // clear text after sumbition
       setText('');

@@ -2,19 +2,29 @@ import React, { useState } from 'react';
 import Card from './shared/Card';
 import PropTypes from 'prop-types';
 import { FaTimes } from 'react-icons/fa';
-
-function FeedBackItem({ item, handleDelte }) {
+// to use context we basicly import 2 thing
+// the api and the context itself
+import { useContext } from 'react';
+import FeedBackContext from '../context/FeedbackContext';
+function FeedBackItem({ item /*handleDelte*/ }) {
   // create function letiral
   // const handleClick = (item, handleDelte) => {
   //   console.log(item.id);
   //   // the click supouse to delete this item
   //   // but the items are not in this component !
   // };
+
+  const { deleteFeedbackItem } = useContext(FeedBackContext);
+
   return (
     <Card>
       {/* they passed as childnre */}
       <div className="num-display">{item.rating}</div>
-      <button onClick={() => handleDelte(item)} className="close">
+      {/* <button onClick={() => handleDelte(item)} className="close">
+        <FaTimes color="purple" />
+      </button> */}
+      {/* Replaced With Context API  */}
+      <button onClick={() => deleteFeedbackItem(item)} className="close">
         <FaTimes color="purple" />
       </button>
       <div className="text-display">{item.text}</div>

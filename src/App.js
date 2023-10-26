@@ -18,15 +18,23 @@ import { FeedBackPorvider } from './context/FeedbackContext';
 
 function App() {
   // now its visiblae in the state components in browser dev tools
-  const [feedBack, setFeedBack] = useState(FeedbackData);
+  // const [feedBack, setFeedBack] = useState(FeedbackData); movedTO ContextAPI
+
   // any thing conected to the feedback ,
   // when feedback changes, all componet  attach to it will change
-  const deleteFeedbackItem = (itemProp) => {
+
+  /**
+   * Moved to FeedBack Contex 
+     const deleteFeedbackItem = (itemProp) => {
     if (window.confirm('are you sure you want to delete')) {
       setFeedBack(feedBack.filter((item) => itemProp.id !== item.id));
     }
     // console.log('App', item.id);
   };
+  */
+
+  /*
+  moved TO ContextApi
   const addFeedbackItem = (newFeedBackItem) => {
     // add UUId to newFeedBackItem
     newFeedBackItem.id = uuidv4();
@@ -46,7 +54,7 @@ function App() {
     console.log(updatedFeedBack);
     setFeedBack(updatedFeedBack);
   };
-
+*/
   // we return jsx: javascript xml
   // this is just syntactic sugar
   return (
@@ -61,12 +69,16 @@ function App() {
               path="/"
               element={
                 <>
-                  <FeedbackForm handleAdd={addFeedbackItem} />
-                  <FeedbackStats feedback={feedBack} />
+                  <FeedbackForm
+                  // handleAdd={addFeedbackItem}
+                  />
+                  <FeedbackStats
+                  // feedback={feedBack}
+                  />
                   {/* <FeedBackItem /> */}
                   <FeedbackList
-                    feedback={feedBack}
-                    handleDelte={deleteFeedbackItem}
+                  // feedback={feedBack} no need now we useContext()
+                  // handleDelte={deleteFeedbackItem}
                   />
                   {/* <Card> Hello World </Card> */}
                 </>
