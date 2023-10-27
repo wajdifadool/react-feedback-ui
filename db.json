@@ -1,0 +1,14 @@
+{
+  "feedback": [
+    {
+      "id": 1,
+      "rating": 10,
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas pretium convallis. Morbi vulputate viverra ipsum quis efficitur. Cras mollis urna in sapien faucibus, tincidunt consequat velit malesuada. Phasellus ut massa consequat, auctor ligula non, elementum sem. Aliquam eget pretium libero, nec tempus metus. Ut tempus odio sed mauris blandit tincidunt. In congue nec erat ut blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean iaculis mauris ut justo vestibulum aliquam. Morbi aliquet sed nibh sed pretium."
+    },
+    {
+      "id": 2,
+      "rating": 8,
+      "text": "Maecenas et facilisis orci. Praesent pulvinar diam ligula, id fringilla nisi maximus ornare. Sed viverra tempor cursus. Sed diam ex, blandit a tortor mattis, elementum ultrices sapien. Etiam orci purus, egestas ac consequat nec, tempus eget mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris imperdiet non quam lacinia bibendum. Ut sollicitudin faucibus orci. Nam sit amet "
+    }
+  ]
+}
