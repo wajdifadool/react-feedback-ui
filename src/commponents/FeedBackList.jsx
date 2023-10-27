@@ -19,7 +19,7 @@ function FeedbackList() {
   // we can extract what ever we want from FeedBackContext hook
   // hence its wraped in APP.js with <FeedBackPorvider>
   const { feedback } = useContext(FeedBackContext);
-  console.log(feedback);
+  console.log('FeedbackList.jsx calledbuubling !!');
   if (!feedback || feedback.length === 0) {
     return <p> No feedBack YET!</p>;
   }

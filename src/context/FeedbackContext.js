@@ -26,14 +26,14 @@ export const FeedBackPorvider = ({ children }) => {
     // add UUId to newFeedBackItem
     newFeedBackItem.id = uuidv4();
 
-    console.log('APp.js addFeedbackItem, newFeedBackItem:', newFeedBackItem);
+    console.log('App.js addFeedbackItem, newFeedBackItem:', newFeedBackItem);
 
     // we want to add it ti the feedback array
     // but state is imutable
     // thereFor we have to copy it and push to it
     // [...feedBack] = the three dot (spread operator) taking all the values in the
     // the ffeback array an copy it
-    console.log('calculating new feed Back APp.js');
+    console.log('calculating new feed Back App.js');
 
     // Step 1: Create a copy of the feedBack array
     const updatedFeedBack = [...feedback];
@@ -41,18 +41,45 @@ export const FeedBackPorvider = ({ children }) => {
     console.log(updatedFeedBack);
     setFeedBack(updatedFeedBack);
   };
+  // set Item to be updated
+  const editFeedback = (item) => {
+    setFeedbackEdit({
+      //
+      item: item,
+      isEditg: true,
+    });
+  };
+
+  const updatedFeedback = (id, upItem) => {
+    console.log('updatedFeedback', id, upItem);
+    setFeedBack(
+      feedback.map((item) => (item.id === id ? { ...item, ...upItem } : item))
+    );
+  };
+
+  // handling edit
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    // the item wthat we want to edit
+    item: {}, // an empty obejct by default
+    // when editing the data will go in this item Object
+    isEditg: false,
+  });
+
   return (
     <FeedBackContext.Provider
       // evrey thing in the value could be extracted using
-      // useContext in othe classes
+      // useContext in on the classes
       value={{
         feedback,
         deleteFeedbackItem,
         addFeedbackItem,
+        editFeedback,
+        feedbackEdit, // FORM COMPONENT // pass the object up to the form so we can edit it
+        updatedFeedback,
       }}>
       {/* and we warp the children 
-      
-        the components that need accses to our content  */}
+      the components that need accses
+      to our content  */}
       {children}
     </FeedBackContext.Provider>
   );

@@ -24,6 +24,7 @@ function RatingSelect({ selectFunction, selected }) {
             onChange={handleChange}
             checked={selected === i + 1}
           />
+
           <label htmlFor={`num${i + 1}`}>{i + 1}</label>
         </li>
       ))}

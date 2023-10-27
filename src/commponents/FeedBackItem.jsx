@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Card from './shared/Card';
 import PropTypes from 'prop-types';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaEdit } from 'react-icons/fa';
 // to use context we basicly import 2 thing
 // the api and the context itself
 import { useContext } from 'react';
 import FeedBackContext from '../context/FeedbackContext';
+
 function FeedBackItem({ item /*handleDelte*/ }) {
   // create function letiral
   // const handleClick = (item, handleDelte) => {
@@ -14,7 +15,7 @@ function FeedBackItem({ item /*handleDelte*/ }) {
   //   // but the items are not in this component !
   // };
 
-  const { deleteFeedbackItem } = useContext(FeedBackContext);
+  const { deleteFeedbackItem, editFeedback } = useContext(FeedBackContext);
 
   return (
     <Card>
@@ -26,6 +27,12 @@ function FeedBackItem({ item /*handleDelte*/ }) {
       {/* Replaced With Context API  */}
       <button onClick={() => deleteFeedbackItem(item)} className="close">
         <FaTimes color="purple" />
+      </button>
+      <button
+        //
+        className="edit"
+        onClick={() => editFeedback(item)}>
+        <FaEdit color="purple"></FaEdit>
       </button>
       <div className="text-display">{item.text}</div>
     </Card>
