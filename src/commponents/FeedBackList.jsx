@@ -1,5 +1,6 @@
 import React from 'react';
 import FeedBackItem from './FeedBackItem';
+import Spinner from './shared/Spinner';
 import PropTypes from 'prop-types';
 // updating to context api
 import { useContext } from 'react';
@@ -18,46 +19,50 @@ function FeedbackList() {
 
   // we can extract what ever we want from FeedBackContext hook
   // hence its wraped in APP.js with <FeedBackPorvider>
-  const { feedback } = useContext(FeedBackContext);
+  const { feedback, isLoading } = useContext(FeedBackContext);
   console.log('FeedbackList.jsx calledbuubling !!');
-  if (!feedback || feedback.length === 0) {
+  if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p> No feedBack YET!</p>;
   }
+
+  if (isLoading === true) return <Spinner />;
   // now we want to loop the feedback array and
   // show each item in card
-  return (
-    <div>
-      <div className="feedbackList-head">
-        <h1>Items</h1>
-      </div>
-      <AnimatePresence>
-        {feedback.map((item) => {
-          // return <div> {item.id} </div>;
-          return (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}>
-              <FeedBackItem
+  else {
+    return (
+      <div>
+        <div className="feedbackList-head">
+          <h1>Items</h1>
+        </div>
+        <AnimatePresence>
+          {feedback.map((item) => {
+            // return <div> {item.id} </div>;
+            return (
+              <motion.div
                 key={item.id}
-                item={item}
-                //  its like we pass the function as a prop to the
-                // FeedBackItem item, and when it get invoked in the FeedBackItem item it will
-                // be called in here
-                // handleDelte={(item) => console.log(item.id)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}>
+                <FeedBackItem
+                  key={item.id}
+                  item={item}
+                  //  its like we pass the function as a prop to the
+                  // FeedBackItem item, and when it get invoked in the FeedBackItem item it will
+                  // be called in here
+                  // handleDelte={(item) => console.log(item.id)}
 
-                // pass it to the App
-                // but we get the handle delete from the App as a prop
+                  // pass it to the App
+                  // but we get the handle delete from the App as a prop
 
-                /*handleDelte={handleDelte} Moved to ContextAPI*/
-              />
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
-    </div>
-  );
+                  /*handleDelte={handleDelte} Moved to ContextAPI*/
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+    );
+  }
 }
 
 FeedbackList.propTypes = {

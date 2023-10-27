@@ -1,28 +1,50 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { FaChessKing } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 const FeedBackContext = createContext();
 
 // passing childrnes
 export const FeedBackPorvider = ({ children }) => {
+  // isLoading
+  const [isLoading, setIsLoading] = useState(true);
   // states goes here
   // state Hooks
-  const [feedback, setFeedBack] = useState([
-    {
-      id: 1,
-      text: 'item  from context',
-      rating: 10,
-    },
-  ]);
+  const [feedback, setFeedBack] = useState([]);
+
+  useEffect(() => {
+    fetchFeedback();
+  }, []);
+
+  const fetchFeedback = async () => {
+    const response = await fetch('/feedback?_sort=id&_order=desc');
+    const data = await response.json();
+    // console.log(data);
+    setFeedBack(data);
+    setIsLoading(false);
+  };
   //   we move the function here so we have to pass it to the value object
-  const deleteFeedbackItem = (itemProp) => {
+  const deleteFeedbackItem = async (itemProp) => {
     if (window.confirm('are you sure you want to delete')) {
+      await fetch(`/feedback/${itemProp.id}`, { method: 'DELETE' });
+
       setFeedBack(feedback.filter((item) => itemProp.id !== item.id));
     }
     // console.log('App', item.id);
   };
 
-  const addFeedbackItem = (newFeedBackItem) => {
+  const addFeedbackItem = async (newFeedBackItem) => {
+    // post to the api
+    const response = await fetch('/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newFeedBackItem),
+    });
+
+    const data = await response.json();
+    console.log('Post Item succseful new data added :', data);
     // add UUId to newFeedBackItem
     newFeedBackItem.id = uuidv4();
 
@@ -50,10 +72,21 @@ export const FeedBackPorvider = ({ children }) => {
     });
   };
 
-  const updatedFeedback = (id, upItem) => {
+  const updatedFeedback = async (id, upItem) => {
+    const response = await fetch(`/feedback/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(upItem),
+    });
+    // the updated item will be updated in the server
+    // then we will get it back (the data )
+    const data = await response.json();
+
     console.log('updatedFeedback', id, upItem);
     setFeedBack(
-      feedback.map((item) => (item.id === id ? { ...item, ...upItem } : item))
+      feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
     );
   };
 
@@ -76,6 +109,7 @@ export const FeedBackPorvider = ({ children }) => {
         editFeedback,
         feedbackEdit, // FORM COMPONENT // pass the object up to the form so we can edit it
         updatedFeedback,
+        isLoading,
       }}>
       {/* and we warp the children 
       the components that need accses
