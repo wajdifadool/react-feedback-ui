@@ -7,6 +7,12 @@ This project demonstrates the **fundamentals of React** by building a **feedback
 
 A **JSON Server** is used to simulate a mock REST API, providing a backend-like experience for the client-side application. Future enhancements could include implementing a real backend with **Node.js** and **Express**.
 
+
+
+
+![smartmockups_m24hp5n6](https://github.com/user-attachments/assets/f73354e1-1513-4b55-817d-6e39c94ad618)
+
+
 #### Features
 
 - **Add Feedback**: Allows users to submit feedback with a rating and a comment. Real-time validation ensures that the comment is at least 10 characters long.
